@@ -1,10 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
+import { RouteManagerService } from '../../../../core/services/route-manager.service';
 
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,
+     CommonModule,
+      RouterLink,
+      RouterLink
+    ],
+  standalone:true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -12,13 +21,16 @@ export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup;
 
-  public constructor(private fb:FormBuilder){}
+  public constructor(
+    private fb:FormBuilder,
+    private authService: AuthService,
+    private routerManager:RouteManagerService
+  ){}
 
 
   ngOnInit(): void {
     this.initForm();
   }
-
 
   initForm(){
     this.loginForm = this.fb.group({
@@ -32,7 +44,17 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
       return;
     }
-    console.log("Enviando al back");
+    const request = this.loginForm.value;
+    console.log("Que tiene el request?", request)
+    this.authService.login(request).subscribe({
+      next:(response) => {
+          this.authService.setToken(response.data.token)
+        console.log("loguedo exitosamente",response);
+        this.routerManager.navigateToRoute('/contactos')
+      }, error: (error) => {
+        console.error("error al loguearse",error);
+      }
+    })
   }
 
 }

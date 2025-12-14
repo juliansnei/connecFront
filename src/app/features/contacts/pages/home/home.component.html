@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-white p-8">
+  
+  <h1 class="text-gray-700 text-2xl font-bold mb-6">Mis contactos</h1> 
+ <div class="flex justify-end mb-6">
+  <p-overlaybadge 
+    value="6"
+   severity="danger"
+    badgeSize="small">
+    <i class="pi pi-bell text-black text-3xl" style="font-size: 2rem;"></i>
+  </p-overlaybadge>
+</div>
+
+  
+  <div class="flex gap-4 mb-8">
+    
+    <input 
+      type="text" 
+      placeholder="Buscar contactos" 
+      class="w-[70%] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
+    >
+    
+    <!-- Envuelve el p-button en un div con flex-1 -->
+    <div class="flex-1">
+      <p-button 
+        severity="info"
+        label="Crear Contacto"
+        icon="pi pi-plus"
+        styleClass="w-full"
+      />
+    </div>
+    
+  </div>
+  
+  <div class="border border-gray-300 rounded-lg p-4">
+    <p class="text-gray-500 text-center">Lista de contactos aquí...</p>
+    <p-table class="bg-white">
+        <ng-template #header let columns
+        >
+        <tr>
+            @for (col of columns;track col){
+            <th>{{col.name}}</th>
+        }
+        </tr>
+
+        </ng-template>
+        <ng-template #body let data>
+            <tr>
+               <div>
+                @for (user of data; track user)
+                {
+                <td>
+                    {{user.name}}
+                </td>
+            }
+               </div>
+            </tr>
+
+        </ng-template>
+    </p-table>
+  </div>
+  
+</div>
