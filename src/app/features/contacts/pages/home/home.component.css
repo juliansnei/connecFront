@@ -1,3 +1,11 @@
 :host{
     --p-datatable-header-background:#fff;
+    --p-datatable-header-cell-background:#fff;
+    --p-datatable-header-cell-color:#000;
+    --p-datatable-row-background:#fff;
+    /* --p-content-color:#000; */
+    --p-datatable-row-color:#000;
 }
+
+
+

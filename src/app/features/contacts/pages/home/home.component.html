@@ -1,9 +1,12 @@
 <div class="min-h-screen bg-white p-8">
   
   <h1 class="text-gray-700 text-2xl font-bold mb-6">Mis contactos</h1> 
- <div class="flex justify-end mb-6">
+ <div class="flex justify-end mb-6"
+ (click)="toggleNotifications()"
+ >
+
   <p-overlaybadge 
-    value="6"
+    [value]="unreadCount > 0 ? unreadCount.toString() : ''"
    severity="danger"
     badgeSize="small">
     <i class="pi pi-bell text-black text-3xl" style="font-size: 2rem;"></i>
@@ -33,26 +36,39 @@
   
   <div class="border border-gray-300 rounded-lg p-4">
     <p class="text-gray-500 text-center">Lista de contactos aquí...</p>
-    <p-table class="bg-white">
-        <ng-template #header let columns
-        >
-        <tr>
+    <p-table class="bg-white" [value]="data">
+        <ng-template pTemplate="header">
+        <tr class="text-gray-500">
             @for (col of columns;track col){
-            <th>{{col.name}}</th>
+            <th [class.text-right]="col.align === 'right'">{{col.name}}</th>
         }
         </tr>
 
         </ng-template>
-        <ng-template #body let data>
+        <ng-template pTemplate="body" let-rowData>
             <tr>
-               <div>
-                @for (user of data; track user)
-                {
                 <td>
-                    {{user.name}}
+                    {{rowData.name}}
                 </td>
-            }
-               </div>
+                 
+                <td class="text-right">
+                  <div class="flex justify-end gap-2">
+                  @for (action of rowData.actions; track action)
+                {
+                  <p-button
+                  [icon]="action.icon"
+                  [title]="action.title"
+                  [severity]="action.severity"
+                   class="p-button-text"
+                  >
+
+                  </p-button>
+                   }
+                   </div>
+                </td>
+                 
+          
+             
             </tr>
 
         </ng-template>
