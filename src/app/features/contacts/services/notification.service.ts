@@ -15,24 +15,33 @@ export class NotificationService {
     public unreadCount$ = this.unreadNotification.asObservable();
 
     public constructor(){
-        this.startPolling();
+        // this.startPolling();
     }
 
      private startPolling() {
-    interval(30000) // 30 segundos
+    interval(5000) 
       .pipe(switchMap(() => this.countNotifications()))
       .subscribe();
   }
 
+//obtener nofiticaciones
     getNotifications(){
         return this.http.get<any>(`${this.BASE_URL}`).pipe(
-            tap(response => this.unreadNotification.next(response.data))
+            tap(
+                response => this.unreadNotification.next(response.data)
+            )
         )
     }
 
+    //contar notificaciones
     public countNotifications():Observable<any>{
         return this.http.get<any>(`${this.BASE_URL}/no-leidas`).pipe(
-            tap(response => this.unreadNotification.next(response.data))
+            tap(
+                response => {
+                    this.unreadNotification.next(response.data)
+                    // console.log("Respuesta notificaciones no leidas:", response.data)
+                }
+            )
         );
     }
 }

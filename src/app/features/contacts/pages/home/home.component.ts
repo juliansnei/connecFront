@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { NotificationService } from '../../services/notification.service';
+import { ReverbService } from '../../../../core/services/reverb.service';
 
 
 @Component({
@@ -22,6 +23,8 @@ export class HomeComponent implements OnInit {
 
   unreadCount = 0;
 
+  private reverbService = inject(ReverbService)
+
   public constructor(
     private notificationService : NotificationService
   ){
@@ -29,9 +32,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.notificationService.unreadCount$.subscribe(count => {
-      this.unreadCount   = count;
-     })
+    //  this.notificationService.unreadCount$.subscribe(count => {
+    //   this.unreadCount   = count;
+    //  })
+       this.reverbService.listenToContacts((event) => {
+      console.log('🔥 Evento desde Laravel', event);
+    });
+  }
+
+   ngOnDestroy() {
+    this.reverbService.stopListening();
   }
   notifications : any[] = []
   showNotifications = false;
