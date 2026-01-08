@@ -1,0 +1,103 @@
+:host{
+    --p-dialog-background:#fff;
+     --p-dialog-border-color: #2548;
+     --p-dialog-title-font-size:2rem;
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out forwards;
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* Estilos del Dialog */
+::ng-deep .custom-dialog {
+  border-radius: 1.5rem !important;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+::ng-deep .custom-dialog .p-dialog-header {
+  background: linear-gradient(to right, #f8fafc, #f1f5f9) !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  padding: 1.5rem 2rem !important;
+}
+
+::ng-deep .custom-dialog .p-dialog-content {
+  padding: 2rem !important;
+  background: white !important;
+}
+
+::ng-deep .custom-dialog .p-dialog-header-icons {
+  gap: 0.5rem;
+}
+
+::ng-deep .custom-dialog .p-dialog-header-close {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s !important;
+}
+
+::ng-deep .custom-dialog .p-dialog-header-close:hover {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  transform: rotate(90deg);
+}
+
+/* Estilos para Select personalizado */
+select {
+  background-image: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Mejoras de accesibilidad */
+.form-group:focus-within label {
+  color: #2563eb;
+}
+
+input:disabled,
+select:disabled {
+  opacity: 0.6;
+}
+
+/* Transición suave para el modal */
+::ng-deep .p-dialog-mask {
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Estilos para opciones del select */
+select option {
+  padding: 0.5rem;
+}
+
+select option:hover {
+  background-color: #eff6ff;
+}

@@ -10,6 +10,8 @@ import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { CustomConfirmationService } from './core/services/custom-confirmation.service';
+import { ConfirmationService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -19,5 +21,6 @@ export const appConfig: ApplicationConfig = {
             theme: {
                 preset: Aura
             }
-        })],
+        }),ConfirmationService
+    ],
 };

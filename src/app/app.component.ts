@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CustomConfirmComponent } from './core/shared/components/custom-confirm/custom-confirm.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,CustomConfirmComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

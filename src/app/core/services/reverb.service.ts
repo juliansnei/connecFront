@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
+import { every } from 'rxjs';
 
-(window as any).Pusher = Pusher;
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +10,7 @@ export class ReverbService {
   echo: any;
 
   constructor() {
+        (window as any).Pusher = Pusher;
     this.echo = new Echo({
       broadcaster: 'reverb',
       key: '4qm6fsezqggxbqovfrqw',
@@ -20,13 +21,14 @@ export class ReverbService {
     });
   }
 
- listenToContacts(callback: (data: any) => void) {
-  this.echo
-    .channel('contactos')
-    .listen('.contact.created', (event: any) => {
-      callback(event);
-    });
+listenContactNotifications(callback: () => void) {
+  const channel = this.echo.channel('contactos');
+
+  channel.listen('.contact.created', () => callback());
+  channel.listen('.contact.updated', () => callback());
+  channel.listen('.contact.deleted', () => callback());
 }
+
 
 stopListening() {
   this.echo.leaveChannel('contactos');

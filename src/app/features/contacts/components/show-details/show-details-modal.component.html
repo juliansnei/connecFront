@@ -1,0 +1,52 @@
+<p-dialog
+[modal]="true"
+[visible]="visible()"
+(visibleChange)="visibleChange.emit($event)"
+[dismissableMask]="true"
+[style]="{ width: '50vw', maxWidth: '600px' }"
+>
+<ng-template #header>
+    <h1 class="text-white text-center">{{title()}}</h1>
+
+</ng-template>
+<ng-template #content>
+  @if (data() !== null) {
+    <div class="bg-slate-800 rounded-xl p-6 shadow-lg space-y-4">
+
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-400">Nombre</span>
+        <span class="text-lg font-semibold text-white">
+          {{ data()?.nombre }}
+        </span>
+      </div>
+
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-400">Apellido</span>
+        <span class="text-lg font-semibold text-white">
+          {{ data()?.apellido }}
+        </span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-400">Telefono</span>
+        <span class="text-lg font-semibold text-white">
+          {{ data()?.telefono }}
+        </span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-400">Descripcion</span>
+        <span class="text-lg font-semibold text-white">
+          {{ data()?.descripcion }}
+        </span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-400">Correo Electronico</span>
+        <span class="text-lg font-semibold text-white">
+          {{ data()?.correo }}
+        </span>
+      </div>
+
+    </div>
+  }
+</ng-template>
+
+</p-dialog>

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../../../environments/environment.development";
 import { BehaviorSubject, interval, Observable, switchMap, tap } from "rxjs";
 
@@ -13,6 +13,7 @@ export class NotificationService {
 
     private unreadNotification  = new BehaviorSubject<number>(0);
     public unreadCount$ = this.unreadNotification.asObservable();
+    unreadNotifications  = signal<any[]>([]);
 
     public constructor(){
         // this.startPolling();
@@ -26,10 +27,15 @@ export class NotificationService {
 
 //obtener nofiticaciones
     getNotifications(){
-        return this.http.get<any>(`${this.BASE_URL}`).pipe(
-            tap(
-                response => this.unreadNotification.next(response.data)
-            )
+        return this.http.get<any>(`${this.BASE_URL}/no-leidas`).subscribe(
+            
+                {
+                    next: (response) => {
+                        console.log("respuesta del back", response.data)
+                        this.unreadNotifications.set(response.data) ?? [];
+                    }
+                }
+        
         )
     }
 
@@ -38,10 +44,17 @@ export class NotificationService {
         return this.http.get<any>(`${this.BASE_URL}/no-leidas`).pipe(
             tap(
                 response => {
-                    this.unreadNotification.next(response.data)
-                    // console.log("Respuesta notificaciones no leidas:", response.data)
+                    this.unreadNotification.next(response.total_unread)
+                    console.log("Respuesta notificaciones no leidas:", response.total_unread)
                 }
             )
         );
+    }
+    public maskAllAsRead():Observable<any>{
+        return this.http.put<any>(`${this.BASE_URL}/marcar-leidas`,{})
+    }
+    
+    public clearNotifications(){
+        this.unreadNotifications.set([]);
     }
 }

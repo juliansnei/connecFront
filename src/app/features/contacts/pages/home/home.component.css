@@ -1,11 +1,42 @@
-:host{
-    --p-datatable-header-background:#fff;
-    --p-datatable-header-cell-background:#fff;
-    --p-datatable-header-cell-color:#000;
-    --p-datatable-row-background:#fff;
-    /* --p-content-color:#000; */
-    --p-datatable-row-color:#000;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
 
+:host {
+  --p-datatable-header-background: #fff;
+  --p-datatable-header-cell-background: #f8fafc;
+  --p-datatable-header-cell-color: #1e293b;
+  --p-datatable-row-background: #fff;
+  --p-datatable-row-color: #334155;
+  --p-datatable-row-hover-background: linear-gradient(to right, #eff6ff, #eef2ff);
+}
 
+::ng-deep .p-datatable .p-datatable-tbody > tr {
+  transition: all 0.2s ease;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background: linear-gradient(to right, #eff6ff, #eef2ff) !important;
+  transform: scale(1.002);
+}
+
+::ng-deep .p-paginator {
+  background: #f8fafc;
+  border-top: 2px solid #e2e8f0;
+  padding: 1rem;
+}
+
+::ng-deep .notifications-panel {
+  margin-top: 0.5rem;
+}
