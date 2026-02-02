@@ -1,0 +1,65 @@
+<p-dialog [visible]="visible()" (visibleChange)="visibleChange.emit($event)" [dismissableMask]="true"
+  [modal]="true" [position]="position()"
+  [styleClass]="'rounded-xl custom-dialog w-[30rem]' + (shiftLeft() ? ' shift-left' : '')">
+  <!-- ENCABEZADO -->
+   <ng-template>
+    <div class="text-center flex justify-content-center text-white-800">
+        <h2>{{config()?.title}}</h2>
+    </div>
+   </ng-template>
+   <!-- BODY -->
+      <div class="dialog-body">
+        <!-- Lista de items -->
+        <div class="items-lista">
+          <div 
+            *ngFor="let item of config()?.listData" 
+            class="item-fila flex align-items-center gap-3 mb-3"
+          >
+            <!-- Checkbox -->
+            <p-checkbox 
+              [(ngModel)]="itemsSeleccionados[item.id]"
+              [binary]="true"
+              [inputId]="'check-' + item.id"
+            />
+
+            <!-- Texto del item -->
+            <label 
+              [for]="'check-' + item.id" 
+              class="item-texto flex-1 cursor-pointer"
+            >
+              {{ item.name }}
+            </label>
+
+            <!-- Botón opcional (solo si item.mostrarBoton es true) -->
+            <p-button 
+              *ngIf="item.mostrarBoton"
+              icon="pi pi-pencil" 
+              [rounded]="true"
+              [text]="true"
+              severity="secondary"
+              size="small"
+              (onClick)="accionBotonExtra(item)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-end gap-2">
+          <p-button 
+            label="Cancelar" 
+            severity="secondary"
+            [text]="true"
+            (onClick)="cerrarDialog()"
+          />
+          <p-button 
+            label="Guardar" 
+            icon="pi pi-save"
+            (onClick)="guardarSeleccion()"
+          />
+        </div>
+      </ng-template>
+  
+  
+</p-dialog>

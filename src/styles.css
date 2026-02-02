@@ -7,3 +7,11 @@
  --p-overlay-popover-background:#3b5cb0;
 }
 
+.custom-dialog {
+    background: white;
+
+}
+.dialog-content {
+  background-color: #f3f8f8;
+  border-radius: 30px;
+}

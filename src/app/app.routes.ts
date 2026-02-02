@@ -18,6 +18,9 @@ export const routes: Routes = [
     path:'contactos',
     loadChildren: () => import('./features/contacts/contacts.routes').then(m => m.CONTACTS_ROUTES)
   },
+  {path:'indicadores',
+    loadChildren:() => import('./features/indicators/indicator.routes').then( m => m.INDICATOR_ROUTE)
+  },
   {
     path:'*',
     redirectTo:'auth/login'
